@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Spring Boot with Kafka Producer Example
 
 This Project covers how to use Spring Boot with Spring Kafka to Publish JSON/String message to a Kafka topic
@@ -16,3 +17,6 @@ This Project covers how to use Spring Boot with Spring Kafka to Publish JSON/Str
 ## Publish message via WebService
 - `http://localhost:8081/kafka/publish/Sam`
 - `http://localhost:8081/kafka/publish/Peter`
+=======
+# rupesh
+>>>>>>> e29298f607485151bb5941cafa3d37dd7a850adf
