@@ -34,11 +34,21 @@ public class NeoController {
 
 	@RequestMapping("/product/show/{id}")
 	public Product getProduct(@PathVariable String id) {
+		if(id == null)
+		{
+			logger.error("Incomplete data");
+			return null;
+		}
 		return productService.getById(Long.valueOf(id));
 	}
 
 	@PostMapping("/publish")
 	public String sendMessageToKafkaTopic(@RequestBody Product product) {
+		if(product == null || product.getCategory() == null || product.getName() == null)
+		{
+			logger.error("Incomplete data");
+			return "Please enter required data";
+		}
 		this.productService.sendMessage(product);
 		logger.info("record published");
 		return "Record published successfully";
@@ -46,6 +56,11 @@ public class NeoController {
 
 	@RequestMapping("/product/delete/{id}")
 	public String delete(@PathVariable String id) {
+		if(id == null)
+		{
+			logger.error("Incomplete data");
+			return "please enter valid data";
+		}
 		productService.delete(Long.valueOf(id));
 		return "Deleted successfully";
 	}
