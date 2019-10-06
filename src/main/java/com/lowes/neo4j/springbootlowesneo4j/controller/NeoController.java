@@ -37,7 +37,7 @@ public class NeoController {
 
     	ResponseEntity<GeneralResponse> response = null;
     	GeneralResponse result = new GeneralResponse();
-    	
+    	try {
     	List<Product> productList = productService.listAll();
     	
     	if(productList == null) {
@@ -52,6 +52,13 @@ public class NeoController {
     		return response;
     		
     	}
+    	}
+    	catch(Exception e) {
+    		result.setResponseMessage("Exception Occured in /product/showAll");
+    		result.setErrorMessage(e.getMessage());
+    		response = new ResponseEntity<GeneralResponse>(result, HttpStatus.INTERNAL_SERVER_ERROR);
+    		return response;
+    	}
     
 	}
 
@@ -60,6 +67,8 @@ public class NeoController {
 
     	ResponseEntity<GeneralResponse> response = null;
     	GeneralResponse result = new GeneralResponse();
+    	try {
+    		
     	if(id == null)
 		{
 			logger.error("Incomplete data");
@@ -82,6 +91,13 @@ public class NeoController {
     		response = new ResponseEntity<GeneralResponse>(result, HttpStatus.OK);
     		return response;
     	}
+    	}
+    	catch(Exception e) {
+    		result.setResponseMessage("Exception Occured in /product/find/{id}");
+    		result.setErrorMessage(e.getMessage());
+    		response = new ResponseEntity<GeneralResponse>(result, HttpStatus.INTERNAL_SERVER_ERROR);
+    		return response;
+    	}
     
 	}
 
@@ -89,7 +105,7 @@ public class NeoController {
 	public ResponseEntity<GeneralResponse> sendMessageToKafkaTopic(@RequestBody Product product) {
 		ResponseEntity<GeneralResponse> response = null;
     	GeneralResponse result = new GeneralResponse();
-    	
+    	try {
     	if(product == null || product.getCategory() == null || product.getName() == null)
 		{
 			logger.error("Incomplete data");
@@ -106,6 +122,13 @@ public class NeoController {
     			response = new ResponseEntity<GeneralResponse>(result, HttpStatus.OK);
     			return response;
     	}
+    	}
+    	catch(Exception e) {
+    		result.setResponseMessage("Exception Occured in /Publish");
+    		result.setErrorMessage(e.getMessage());
+    		response = new ResponseEntity<GeneralResponse>(result, HttpStatus.INTERNAL_SERVER_ERROR);
+    		return response;
+    	}
 	}
 
 	@RequestMapping("/product/delete/{id}")
@@ -114,6 +137,7 @@ public class NeoController {
     	ResponseEntity<GeneralResponse> response = null;
     	GeneralResponse result = new GeneralResponse();
     	
+    	try {
     	if(id == null)
 		{
 			logger.error("Incomplete data");
@@ -127,6 +151,13 @@ public class NeoController {
     		productService.delete(Long.valueOf(id));
     		result.setResponseMessage("Request processed successfully");
     		response = new ResponseEntity<GeneralResponse>(result, HttpStatus.OK);;
+    		return response;
+    	}
+    	}
+    	catch(Exception e) {
+    		result.setResponseMessage("Exception Occured in /product/delete/{id}");
+    		result.setErrorMessage(e.getMessage());
+    		response = new ResponseEntity<GeneralResponse>(result, HttpStatus.INTERNAL_SERVER_ERROR);
     		return response;
     	}
 	}
