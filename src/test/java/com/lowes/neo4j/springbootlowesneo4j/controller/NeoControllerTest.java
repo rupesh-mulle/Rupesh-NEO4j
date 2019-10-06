@@ -46,9 +46,9 @@ public class NeoControllerTest {
 	 
 	  @Test
 	    public void sendMessageToKafkaTopic() throws Exception {
-	    	when(neoController.sendMessageToKafkaTopic(product)).thenReturn("Record publish with ID :");
+	    	when(neoController.sendMessageToKafkaTopic(product)).thenReturn("Record published successfully");
 	    	String result = neoController.sendMessageToKafkaTopic(product);
-	    	assertEquals("Record publish with ID :", result);
+	    	assertEquals("Record published successfully", result);
 	    }
 	    
 	    @Test

@@ -39,7 +39,7 @@ public Product getProduct(@PathVariable String id){
 @PostMapping("/publish")
 public String sendMessageToKafkaTopic(@RequestBody Product product) {
     this.productService.sendMessage(product);
-    return "Record publish with ID :"+product.getId();
+    return "Record published successfully";
 }
 
 @RequestMapping("/product/delete/{id}")
