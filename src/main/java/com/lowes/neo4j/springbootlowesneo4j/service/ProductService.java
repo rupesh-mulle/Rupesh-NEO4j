@@ -36,19 +36,23 @@ public class ProductService {
     public List<Product> listAll() {
         List<Product> products = new ArrayList<>();
         productRepository.findAll().forEach(products::add); 
+        logger.info("retrieved all the products");
         return products;
     }
 
     public Product getById(Long id) {
+    	logger.info("call to fetch a record");
         return productRepository.findById(id).orElse(null);
     }
 
     public Product saveOrUpdate(Product product) {
         productRepository.save(product);
+        logger.info("save/update a record");
         return product;
     }
 
     public void delete(Long id) {
+    	logger.info("request to delete a record");
         productRepository.deleteById(id);
 
     }
@@ -56,7 +60,7 @@ public class ProductService {
     public Product saveOrUpdateProductForm (Product product) {
         Product savedProduct = saveOrUpdate(product);
 
-        System.out.println("Saved Product Id: " + product.getId());
+        logger.info("saved a product");
         return savedProduct;
     }
 }
