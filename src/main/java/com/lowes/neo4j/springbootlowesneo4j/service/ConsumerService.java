@@ -13,16 +13,16 @@ import com.lowes.neo4j.springbootlowesneo4j.model.Product;
 import com.lowes.neo4j.springbootlowesneo4j.repository.ProductRepository;
 
 @Service
-public class Consumer {
+public class ConsumerService {
 	
 	 @Autowired
 	 ProductRepository productRepository;
 
-    private final Logger logger = LoggerFactory.getLogger(Consumer.class);
+    private final Logger logger = LoggerFactory.getLogger(ConsumerService.class);
 
     @KafkaListener(topics = "EXAMPLE_TOPIC")
     public void consume(String prodString) throws IOException {
-        logger.info(String.format("#### -> Consumed message -> %s", prodString));
+        logger.info(String.format("Consumed record is -> ", prodString));
         Gson g = new Gson(); 
         Product product = g.fromJson(prodString, Product.class);
          Product prod = new Product();
